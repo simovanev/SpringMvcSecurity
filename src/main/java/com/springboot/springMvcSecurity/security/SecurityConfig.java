@@ -36,8 +36,8 @@ public class SecurityConfig {
         http.authorizeHttpRequests(config -> config.anyRequest()
                         .authenticated())
                 .formLogin(form -> form
-                        .loginPage("/logInPage")
-                        .loginProcessingUrl("/logInProcessing")
+                        .loginPage("/loginPage")
+                        .loginProcessingUrl("/loginProcessing")
                         .permitAll());
         return http.build();
     }
