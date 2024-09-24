@@ -21,12 +21,12 @@ public class SecurityConfig {
         UserDetails mary = User.builder()
                 .username("mary")
                 .password("{noop}test123")
-                .roles("EMPLOYEE,MANAGER")
+                .roles("EMPLOYEE","MANAGER")
                 .build();
         UserDetails susan = User.builder()
                 .username("susan")
                 .password("{noop}test123")
-                .roles("MANAGER,EMPLOYEE,ADMIN")
+                .roles("MANAGER", "EMPLOYEE", "ADMIN")
                 .build();
 
         return new InMemoryUserDetailsManager(susan, john, mary);
@@ -34,8 +34,12 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
-        http.authorizeHttpRequests(config -> config.anyRequest()
-                        .authenticated())
+        http.authorizeHttpRequests(config -> config
+                        .requestMatchers("/").hasRole("EMPLOYEE")
+                        .requestMatchers("/leaders?**").hasRole("MANAGER")
+                        .requestMatchers("/system/**").hasRole("ADMIN")
+                        .anyRequest().authenticated())
+
                 .formLogin(form -> form
                         .loginPage("/loginPage")
                         .loginProcessingUrl("/loginProcessing")
