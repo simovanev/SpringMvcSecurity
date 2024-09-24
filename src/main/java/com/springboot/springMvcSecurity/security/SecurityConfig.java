@@ -21,7 +21,7 @@ public class SecurityConfig {
         UserDetails mary = User.builder()
                 .username("mary")
                 .password("{noop}test123")
-                .roles("EMPLOYEE","MANAGER")
+                .roles("EMPLOYEE", "MANAGER")
                 .build();
         UserDetails susan = User.builder()
                 .username("susan")
@@ -36,7 +36,7 @@ public class SecurityConfig {
     public SecurityFilterChain filterChain(HttpSecurity http) throws Exception {
         http.authorizeHttpRequests(config -> config
                         .requestMatchers("/").hasRole("EMPLOYEE")
-                        .requestMatchers("/leaders?**").hasRole("MANAGER")
+                        .requestMatchers("/leaders/**").hasRole("MANAGER")
                         .requestMatchers("/system/**").hasRole("ADMIN")
                         .anyRequest().authenticated())
 
@@ -44,7 +44,8 @@ public class SecurityConfig {
                         .loginPage("/loginPage")
                         .loginProcessingUrl("/loginProcessing")
                         .permitAll())
-                .logout(LogoutConfigurer::permitAll);
+                .logout(LogoutConfigurer::permitAll)
+                .exceptionHandling(config -> config.accessDeniedPage("/access-denied"));
 
         return http.build();
     }
