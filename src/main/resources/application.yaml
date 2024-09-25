@@ -21,15 +21,15 @@ spring:
 #      mode: always
 
 # Login config to display SQL statements
-logging:
-  level:
-    root: warn
-    org:
-      hibernate:
-        sql: debug
-        orm:
-          jdbc:
-            bind: trace
-      springframework:
-        security: debug
+#logging:
+#  level:
+#    root: warn
+#    org:
+#      hibernate:
+#        sql: debug
+#        orm:
+#          jdbc:
+#            bind: trace
+#      springframework:
+#        security: debug
 
