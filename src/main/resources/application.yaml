@@ -1,0 +1,35 @@
+spring:
+  datasource:
+    driverClassName: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/employee_directory?allowPublicKeyRetrieval=true&useSSL=false&createDatabaseIfNotExist=true&serverTimezone=UTC
+    username: root
+    password: mysqljava18!
+  main:
+    banner-mode: off
+  security:
+    user:
+      name: simo
+      password: test123
+  jpa:
+    #    database-platform: org.hibernate.dialect.MySQLDialect
+    #    defer-datasource-initialization: true
+    hibernate:
+      ddl-auto: update
+    open-in-view: on
+#  sql:
+#    init:
+#      mode: always
+
+# Login config to display SQL statements
+logging:
+  level:
+    root: warn
+    org:
+      hibernate:
+        sql: debug
+        orm:
+          jdbc:
+            bind: trace
+      springframework:
+        security: debug
+
